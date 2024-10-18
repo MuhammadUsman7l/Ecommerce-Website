@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "./components/header";
+import Layout from "./Layout/Layout.jsx";
 
 function App() {
   return (
     <>
-      <div className="bg-red">Hello</div>
+      <Layout />
     </>
   );
 }
