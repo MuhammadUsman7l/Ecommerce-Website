@@ -1,4 +1,3 @@
-// src/components/Footer.js
 import React from "react";
 import { FiFacebook, FiTwitter, FiInstagram, FiLinkedin } from "react-icons/fi";
 
