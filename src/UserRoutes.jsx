@@ -5,6 +5,7 @@ import {
   Cart,
   Checkout,
   CheckoutForm,
+  ContactPage,
   LandingPage,
   OrderHistory,
   ProductDetails,
@@ -16,12 +17,13 @@ function UserRoutes() {
     <Routes>
       <Route path="/" Component={LandingPage} />
       <Route path="/category/:category" element={<ProductListing />} />
+      <Route path="/contact" element={<ContactPage />} />
       <Route path="/product/:id" Component={ProductDetails} />
       <Route path="/cart" Component={Cart} />
       <Route path="/checkout" Component={Checkout} />
       <Route path="/order-history" Component={OrderHistory} />
       <Route path="/admin" Component={AdminPanel} />
-      <Route path="/login" Component={<CheckoutForm />} />
+      <Route path="/login" element={<CheckoutForm />} />
     </Routes>
   );
 }

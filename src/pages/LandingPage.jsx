@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const slides = [hero1, hero2, hero3, hero4, hero5, hero6, hero7];
-  const [cat, setCat] = useState(null);
   const navigate = useNavigate();
 
   const handleClick = (categoryValue) => {

@@ -6,6 +6,7 @@ import ProductDetails from "./ProductDetails";
 import Cart from "./Cart";
 import Checkout from "./Checkout";
 import CheckoutForm from "./CheckoutForm";
+import ContactPage from "./Contact";
 
 export {
   AdminPanel,
@@ -16,4 +17,5 @@ export {
   Cart,
   Checkout,
   CheckoutForm,
+  ContactPage,
 };

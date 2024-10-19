@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   FiShoppingCart,
   FiHeart,
@@ -9,11 +9,24 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 import image from "../images/logo.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchMenProducts } from "../redux/productSlice";
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleCategoryClick = useCallback(
+    (category) => {
+      dispatch(fetchMenProducts(category));
+      navigate(`/category/${category}`);
+    },
+    [dispatch, navigate]
+  );
 
   return (
     <>
@@ -41,46 +54,97 @@ const Header = () => {
 
           {/* Desktop Navigation & Icons */}
           <div className="hidden lg:flex items-center space-x-6">
-            <a href="#" className="text-gray-600 hover:text-orange-600">
+            <Link to="/" className="text-gray-600 hover:text-orange-600">
               Home
-            </a>
+            </Link>
 
             {/* Dropdown Menu for Categories with Dropdown Icon */}
             <div className="relative group">
-              <a
-                href="#"
-                className="text-gray-600 hover:text-orange-600 flex items-center"
-              >
+              <a className="text-gray-600 hover:text-orange-600 flex items-center cursor-pointer p-3">
                 Categories
-                <FiChevronDown className="ml-1 mt-1" /> {/* Dropdown icon */}
+                <FiChevronDown className="ml-1 mt-1" />
               </a>
 
               {/* Dropdown Content with Hover Fix */}
-              <div className="absolute hidden group-hover:flex flex-col bg-white shadow-lg border mt-2 w-48 text-gray-700 transition-opacity ease-in-out opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto">
-                <a href="#" className="px-4 py-2 hover:bg-gray-100">
-                  Electronics
-                </a>
-                <a href="#" className="px-4 py-2 hover:bg-gray-100">
-                  Clothing
-                </a>
-                <a href="#" className="px-4 py-2 hover:bg-gray-100">
-                  Home Appliances
-                </a>
-                <a href="#" className="px-4 py-2 hover:bg-gray-100">
+              <div className="absolute hidden group-hover:flex flex-col bg-white rounded-md shadow-lg border w-48 text-gray-700 transition-opacity ease-in-out opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto">
+                <Link
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCategoryClick("men");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100"
+                >
+                  Men
+                </Link>
+                <Link
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCategoryClick("ladies");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100"
+                >
+                  Women
+                </Link>
+                <Link
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCategoryClick("baby");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100"
+                >
+                  Baby
+                </Link>
+                <Link
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCategoryClick("kids");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100"
+                >
+                  Kids
+                </Link>
+                <Link
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCategoryClick("home");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100"
+                >
+                  Home
+                </Link>
+                <Link
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCategoryClick("beauty");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100"
+                >
+                  Beauty
+                </Link>
+                <Link
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCategoryClick("sport");
+                  }}
+                  className="px-4 py-2 hover:bg-gray-100"
+                >
                   Sports
-                </a>
-                <a href="#" className="px-4 py-2 hover:bg-gray-100">
-                  Beauty & Health
-                </a>
+                </Link>
               </div>
             </div>
 
-            <a href="#" className="text-gray-600 hover:text-orange-600">
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                handleCategoryClick("sale");
+              }}
+              className="text-gray-600 hover:text-orange-600"
+            >
               Sale
-            </a>
-            <a href="#" className="text-gray-600 hover:text-orange-600">
+            </Link>
+            <Link to="/contact" className="text-gray-600 hover:text-orange-600">
               Contact
-            </a>
+            </Link>
 
             {/* Wishlist Icon */}
             <a href="#" className="relative">
@@ -91,9 +155,12 @@ const Header = () => {
             </a>
 
             {/* User Profile Icon */}
-            <a href="#" className="text-gray-600 hover:text-orange-600 text-xl">
+            <Link
+              to="/login"
+              className="text-gray-600 hover:text-orange-600 text-xl"
+            >
               <FiUser />
-            </a>
+            </Link>
 
             {/* Cart Icon */}
             <a href="#" className="relative">
@@ -120,9 +187,9 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-white shadow-md fixed right-0 h-full z-10">
             <nav className="flex flex-col items-start space-y-4 px-8 py-4">
-              <a href="#" className="text-gray-600 hover:text-orange-600">
+              <Link to="/" className="text-gray-600 hover:text-orange-600">
                 Home
-              </a>
+              </Link>
 
               {/* Mobile Dropdown for Categories */}
               <div className="flex flex-col">
@@ -137,54 +204,99 @@ const Header = () => {
                 {/* Mobile Dropdown Content */}
                 {isMobileDropdownOpen && (
                   <div className="flex flex-col items-start  text-gray-700 mt-2">
-                    <a
-                      href="#"
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCategoryClick("men");
+                      }}
                       className="block px-4 py-2 text-gray-600 hover:text-orange-600"
                     >
-                      Electronics
-                    </a>
-                    <a
-                      href="#"
+                      Men
+                    </Link>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCategoryClick("ladies");
+                      }}
                       className="block px-4 py-2 text-gray-600 hover:text-orange-600"
                     >
-                      Clothing
-                    </a>
-                    <a
-                      href="#"
+                      Woman
+                    </Link>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCategoryClick("baby");
+                      }}
                       className="block px-4 py-2 text-gray-600 hover:text-orange-600"
                     >
-                      Home Appliances
-                    </a>
-                    <a
-                      href="#"
+                      Baby
+                    </Link>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCategoryClick("kids");
+                      }}
+                      className="block px-4 py-2 text-gray-600 hover:text-orange-600"
+                    >
+                      Kids
+                    </Link>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCategoryClick("home");
+                      }}
+                      className="block px-4 py-2 text-gray-600 hover:text-orange-600"
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCategoryClick("beauty");
+                      }}
+                      className="block px-4 py-2 text-gray-600 hover:text-orange-600"
+                    >
+                      Beauty
+                    </Link>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCategoryClick("sport");
+                      }}
                       className="block px-4 py-2 text-gray-600 hover:text-orange-600"
                     >
                       Sports
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-gray-600 hover:text-orange-600"
-                    >
-                      Beauty & Health
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
 
-              <a href="#" className="text-gray-600 hover:text-orange-600">
+              <Link
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCategoryClick("sale");
+                }}
+                className="text-gray-600 hover:text-orange-600"
+              >
                 Sale
-              </a>
-              <a href="#" className="text-gray-600 hover:text-orange-600">
+              </Link>
+              <Link
+                to="/contact"
+                className="text-gray-600 hover:text-orange-600"
+              >
                 Contact
-              </a>
+              </Link>
 
               <div className="flex space-x-6">
                 <a href="#" className="text-gray-600 hover:text-orange-600">
                   <FiHeart />
                 </a>
-                <a href="#" className="text-gray-600 hover:text-orange-600">
+                <Link
+                  to="/login"
+                  className="text-gray-600 hover:text-orange-600"
+                >
                   <FiUser />
-                </a>
+                </Link>
                 <a href="#" className="text-gray-600 hover:text-orange-600">
                   <FiShoppingCart />
                 </a>
