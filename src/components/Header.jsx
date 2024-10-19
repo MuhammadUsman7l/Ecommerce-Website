@@ -163,12 +163,12 @@ const Header = () => {
             </Link>
 
             {/* Cart Icon */}
-            <a href="#" className="relative">
+            <Link to="/cart" className="relative">
               <FiShoppingCart className="text-gray-600 hover:text-orange-600 text-xl" />
               <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-1">
                 2
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -297,9 +297,12 @@ const Header = () => {
                 >
                   <FiUser />
                 </Link>
-                <a href="#" className="text-gray-600 hover:text-orange-600">
+                <Link
+                  to="/cart"
+                  className="text-gray-600 hover:text-orange-600"
+                >
                   <FiShoppingCart />
-                </a>
+                </Link>
               </div>
             </nav>
           </div>

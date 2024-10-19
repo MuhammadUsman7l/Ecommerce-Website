@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMenProducts, fetchProductDetails } from "../redux/productSlice";
 import { LoadingSpinner, ProductCard, Error } from "../components";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../redux/cartSlice";
 
 const ProductListing = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,10 @@ const ProductListing = () => {
     },
     [dispatch, navigate]
   );
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
 
   return (
     <div className="container mx-auto py-10">
@@ -50,6 +55,7 @@ const ProductListing = () => {
               onClick={(e) => {
                 handleClick(product.defaultArticle.code);
               }}
+              onClick1={() => handleAddToCart(product)}
             />
           ))}
         </div>

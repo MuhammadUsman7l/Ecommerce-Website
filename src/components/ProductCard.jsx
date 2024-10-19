@@ -1,12 +1,10 @@
 import React from "react";
 import { FiShoppingCart } from "react-icons/fi";
+import { CgDetailsMore } from "react-icons/cg";
 
-const ProductCard = ({ image, brandname, name, price, onClick }) => {
+const ProductCard = ({ image, brandname, name, price, onClick, onClick1 }) => {
   return (
-    <div
-      className="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 flex flex-col justify-between"
-      onClick={onClick}
-    >
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105 flex flex-col justify-between">
       {/* Image section */}
       <div className="h-48 flex justify-center items-center">
         <div className="w-48 h-full flex justify-center items-center">
@@ -38,7 +36,19 @@ const ProductCard = ({ image, brandname, name, price, onClick }) => {
 
         {/* Button Section */}
         <div className="w-full">
-          <button className="bg-orange-700 text-white px-4 py-2 rounded-lg hover:bg-white hover:text-orange-700 hover:border-2 hover:border-orange-700 transition flex items-center justify-center w-full">
+          <button
+            className="bg-orange-700 text-white px-4 py-2 rounded-lg hover:bg-white hover:text-orange-700 hover:border-2 hover:border-orange-700 transition flex items-center justify-center w-full"
+            onClick={onClick}
+          >
+            <CgDetailsMore className="mr-2" />
+            See Details
+          </button>
+        </div>
+        <div className="w-full mt-3">
+          <button
+            className="bg-orange-700 text-white px-4 py-2 rounded-lg hover:bg-white hover:text-orange-700 hover:border-2 hover:border-orange-700 transition flex items-center justify-center w-full"
+            onClick={onClick1}
+          >
             <FiShoppingCart className="mr-2" />
             Add to Cart
           </button>

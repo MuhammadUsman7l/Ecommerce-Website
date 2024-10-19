@@ -19,8 +19,7 @@ function UserRoutes() {
       <Route path="/category/:category" element={<ProductListing />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/product/:code" element={<ProductDetails />} />
-      <Route path="/cart" Component={Cart} />
-      <Route path="/checkout" Component={Checkout} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="/order-history" Component={OrderHistory} />
       <Route path="/admin" Component={AdminPanel} />
       <Route path="/login" element={<CheckoutForm />} />

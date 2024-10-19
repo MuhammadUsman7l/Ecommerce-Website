@@ -21,37 +21,40 @@ const ShoppingCart = ({ cartItems, onRemoveItem, onUpdateQuantity }) => {
                 key={item.id}
                 className="flex justify-between items-center border-b pb-2 mb-2"
               >
-                <div className="flex items-center">
+                <div className="flex items-center h-16 w-16">
                   <img
-                    src={item.image}
+                    src={item.images[0].baseUrl}
                     alt={item.name}
-                    className="h-16 w-16 object-cover rounded-md mr-4"
+                    className="h-full w-full object-contain rounded-md mr-4"
                   />
-                  <div>
+                </div>
+                <div>
+                  <div className="flex flex-col">
                     <h3 className="text-lg font-semibold">{item.name}</h3>
-                    <p className="text-gray-600">${item.price.toFixed(2)}</p>
-                    <div className="flex items-center mt-2">
-                      <button
-                        onClick={() =>
-                          onUpdateQuantity(item.id, item.quantity - 1)
-                        }
-                        disabled={item.quantity <= 1}
-                        className="px-2 py-1 bg-gray-300 rounded-md hover:bg-gray-400 transition"
-                      >
-                        -
-                      </button>
-                      <span className="mx-2">{item.quantity}</span>
-                      <button
-                        onClick={() =>
-                          onUpdateQuantity(item.id, item.quantity + 1)
-                        }
-                        className="px-2 py-1 bg-gray-300 rounded-md hover:bg-gray-400 transition"
-                      >
-                        +
-                      </button>
-                    </div>
+                    <p className="text-gray-600">${item.price.value}</p>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <button
+                      onClick={() =>
+                        onUpdateQuantity(item.id, item.quantity - 1)
+                      }
+                      disabled={item.quantity <= 1}
+                      className="px-2 py-1 bg-gray-300 rounded-md hover:bg-gray-400 transition"
+                    >
+                      -
+                    </button>
+                    <span className="mx-2">{item.quantity}</span>
+                    <button
+                      onClick={() =>
+                        onUpdateQuantity(item.id, item.quantity + 1)
+                      }
+                      className="px-2 py-1 bg-gray-300 rounded-md hover:bg-gray-400 transition"
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
+
                 <button
                   onClick={() => onRemoveItem(item.id)}
                   className="text-red-600 hover:text-red-800 transition"
