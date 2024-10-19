@@ -9,6 +9,7 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 import image from "../images/logo.webp";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
