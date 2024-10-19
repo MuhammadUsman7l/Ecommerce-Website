@@ -19,7 +19,6 @@ export const fetchAllProducts = createAsyncThunk(
 
     try {
       const response = await axios.request(options);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       throw error.response ? error.response.data : error;
@@ -29,7 +28,7 @@ export const fetchAllProducts = createAsyncThunk(
 
 export const fetchMenProducts = createAsyncThunk(
   "products/fetchMenProducts",
-  async () => {
+  async (category) => {
     const options = {
       method: "GET",
       url: "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list",
@@ -38,7 +37,7 @@ export const fetchMenProducts = createAsyncThunk(
         lang: "en",
         currentpage: "0",
         pagesize: "30",
-        categories: "men",
+        categories: category,
       },
       headers: {
         "x-rapidapi-key": "2e2f6e93a8mshae15ecfbd6f1662p190319jsn970c23294102",

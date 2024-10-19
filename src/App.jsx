@@ -7,9 +7,7 @@ import CheckoutForm from "./pages/CheckoutForm";
 function App() {
   return (
     <>
-      <Layout>
-        <LandingPage />
-      </Layout>
+      <Layout />
     </>
   );
 }

@@ -1,11 +1,13 @@
 import React from "react";
 import { Footer, Header } from "../components";
+import { BrowserRouter as Router } from "react-router-dom";
+import UserRoutes from "../UserRoutes";
 
-function Layout({ children }) {
+function Layout() {
   return (
     <>
       <Header />
-      {children}
+      <UserRoutes />
       <Footer />
     </>
   );

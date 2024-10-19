@@ -4,11 +4,19 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 import { hero1, hero2, hero3, hero4, hero5, hero6, hero7 } from "../images";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllProducts } from "../redux/productSlice";
+import { fetchAllProducts, fetchMenProducts } from "../redux/productSlice";
+import ProductListing from "./ProductListing";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const slides = [hero1, hero2, hero3, hero4, hero5, hero6, hero7];
+  const [cat, setCat] = useState(null);
+  const navigate = useNavigate();
 
+  const handleClick = (categoryValue) => {
+    dispatch(fetchMenProducts(categoryValue));
+    navigate(`/category/${categoryValue}`);
+  };
   const dispatch = useDispatch();
   const {
     data: products,
@@ -125,7 +133,11 @@ const LandingPage = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {products.map((product, index) => (
-              <ProductCategories key={index} title={product.CatName} />
+              <ProductCategories
+                key={index}
+                title={product.CatName}
+                onClick={() => handleClick(product.CategoryValue)}
+              />
             ))}
           </div>
         </div>
