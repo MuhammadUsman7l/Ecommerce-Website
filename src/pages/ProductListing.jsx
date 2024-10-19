@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMenProducts } from "../redux/productSlice";
+import { fetchMenProducts, fetchProductDetails } from "../redux/productSlice";
 import { LoadingSpinner, ProductCard, Error } from "../components";
+import { useNavigate } from "react-router-dom";
 
 const ProductListing = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,16 @@ const ProductListing = () => {
   useEffect(() => {
     dispatch(fetchMenProducts());
   }, [dispatch]);
+
+  const navigate = useNavigate();
+
+  const handleClick = useCallback(
+    (code) => {
+      dispatch(fetchProductDetails(code));
+      navigate(`/product/${code}`);
+    },
+    [dispatch, navigate]
+  );
 
   return (
     <div className="container mx-auto py-10">
@@ -36,6 +47,9 @@ const ProductListing = () => {
               name={product.name}
               brandname={product.brandName}
               price={product.price.value}
+              onClick={(e) => {
+                handleClick(product.defaultArticle.code);
+              }}
             />
           ))}
         </div>

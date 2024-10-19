@@ -19,7 +19,6 @@ export const fetchAllProducts = createAsyncThunk(
 
     try {
       const response = await axios.request(options);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       throw error.response ? error.response.data : error;
@@ -49,6 +48,33 @@ export const fetchMenProducts = createAsyncThunk(
     try {
       const response = await axios.request(options);
       return response.data.results;
+    } catch (error) {
+      throw error.response ? error.response.data : error;
+    }
+  }
+);
+
+export const fetchProductDetails = createAsyncThunk(
+  "products/fetchProductDetails",
+  async (code) => {
+    const options = {
+      method: "GET",
+      url: "https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/detail",
+      params: {
+        lang: "en",
+        country: "us",
+        productcode: code,
+      },
+      headers: {
+        "x-rapidapi-key": "2e2f6e93a8mshae15ecfbd6f1662p190319jsn970c23294102",
+        "x-rapidapi-host": "apidojo-hm-hennes-mauritz-v1.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      console.log(response.data.product);
+      return response.data.product;
     } catch (error) {
       throw error.response ? error.response.data : error;
     }
@@ -93,6 +119,18 @@ const productSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchAllProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(fetchProductDetails.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProductDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchProductDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

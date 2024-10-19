@@ -5,7 +5,6 @@ import { RxDotFilled } from "react-icons/rx";
 import { hero1, hero2, hero3, hero4, hero5, hero6, hero7 } from "../images";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts, fetchMenProducts } from "../redux/productSlice";
-import ProductListing from "./ProductListing";
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {

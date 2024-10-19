@@ -15,10 +15,10 @@ import {
 function UserRoutes() {
   return (
     <Routes>
-      <Route path="/" Component={LandingPage} />
+      <Route path="/" element={<LandingPage />} />
       <Route path="/category/:category" element={<ProductListing />} />
       <Route path="/contact" element={<ContactPage />} />
-      <Route path="/product/:id" Component={ProductDetails} />
+      <Route path="/product/:code" element={<ProductDetails />} />
       <Route path="/cart" Component={Cart} />
       <Route path="/checkout" Component={Checkout} />
       <Route path="/order-history" Component={OrderHistory} />
