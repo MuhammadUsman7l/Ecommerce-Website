@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ProductCard } from "../components";
+import { LoadingSpinner, ProductCategories, Error } from "../components";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 import { hero1, hero2, hero3, hero4, hero5, hero6, hero7 } from "../images";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../redux/productSlice";
+import { fetchAllProducts } from "../redux/productSlice";
 
 const LandingPage = () => {
   const slides = [hero1, hero2, hero3, hero4, hero5, hero6, hero7];
@@ -17,7 +17,7 @@ const LandingPage = () => {
   } = useSelector((state) => state.products);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchAllProducts());
   }, [dispatch]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -110,21 +110,26 @@ const LandingPage = () => {
         </div>
       </div>
       {/* Featured Products Section */}
-      <div className="container mx-auto py-10">
-        <h2 className="text-3xl font-semibold text-center mb-6">
-          Featured Products
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product, index) => (
-            <ProductCard
-              key={index}
-              image={product.deal_photo}
-              name={product.deal_title}
-              price={product.deal_price[0]}
-            />
-          ))}
+      {loading ? (
+        <div className="flex items-center justify-center py-10">
+          <LoadingSpinner />{" "}
         </div>
-      </div>
+      ) : error ? (
+        <div className="flex items-center justify-center py-10">
+          <Error message={error} />{" "}
+        </div>
+      ) : (
+        <div className="container mx-auto py-10">
+          <h2 className="text-3xl font-semibold text-center mb-6">
+            Product Catagories
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {products.map((product, index) => (
+              <ProductCategories key={index} title={product.CatName} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
